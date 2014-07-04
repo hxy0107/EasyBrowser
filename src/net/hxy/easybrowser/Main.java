@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +30,7 @@ public class Main extends Activity {
 	private ImageButton backBtn;
 	private WebView mWebView;
 	private String cur_url="http://www.baidu.com";
+	protected String Tag="Main";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,16 +48,22 @@ public void onInit(){
 	backBtn=(ImageButton)findViewById(R.id.go_back);
 	//btn is ImageButton,not button,so use Button.OnClickListener()
 	btn.setOnClickListener(new Button.OnClickListener(){
+		
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			String str1=edit.getText().toString();
+			Log.e(Tag,"str1:"+str1);
+			Log.e(Tag,"str1.substring(0,7):"+str1.substring(0,6).toString());
 			String str=null;
-			if(str1.substring(0,6).equals("http://")){
+			//: is two byte
+			if(str1.substring(0,7).equals("http://")){
 				str=str1;
 			}else{
 				str="http://".toString()+str1;
 			}
+			Log.e(Tag,"str:"+str);
 			
 			mWebView.loadUrl(str);
 		}
